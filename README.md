@@ -19,9 +19,18 @@ Node.js 18 or higher — https://nodejs.org
 
 ## Setup
 
+**1. Install dependencies**
 ```bash
 npm install
 ```
+
+**2. Add the submission secret**
+
+Go to your repo on GitHub → **Settings → Secrets and variables → Actions → New repository secret**
+- Name: `SHEETS_WEBHOOK_URL`
+- Value: *(provided by your teacher via Teams)*
+
+This allows the automated test results to be recorded when you submit.
 
 ---
 
