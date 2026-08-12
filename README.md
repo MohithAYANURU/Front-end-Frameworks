@@ -1,6 +1,6 @@
-# Movie App — Exercises
+# Movie App : Exercises
 
-EPITA Bachelor in Computer Science — S5
+EPITA Bachelor in Computer Science : S5
 Front-End Frameworks (2627_BSI_CS_S05_PROG_FEF)
 
 ---
@@ -13,7 +13,7 @@ The app itself (React, TMDB API, routing, global state) is built in subsequent b
 
 ## Prerequisites
 
-Node.js 18 or higher — https://nodejs.org
+Node.js 18 or higher : https://nodejs.org
 
 ---
 
@@ -36,7 +36,7 @@ This allows the automated test results to be recorded when you submit.
 
 ## Exercises
 
-Plain JS files in `exercises/` — no build step required. You can run them in the browser console or with Node 18+.
+Plain JS files in `exercises/` : no build step required. You can run them in the browser console or with Node 18+.
 
 | File | Topic |
 |---|---|
@@ -75,7 +75,7 @@ git tag submit
 git push origin submit
 ```
 
-> **Important:** Tags are unique — you cannot push the same tag twice. To resubmit, delete the old tag first and recreate it:
+> **Important:** Tags are unique : you cannot push the same tag twice. To resubmit, delete the old tag first and recreate it:
 > ```bash
 > git tag -d submit                # delete locally
 > git push origin --delete submit  # delete on GitHub
