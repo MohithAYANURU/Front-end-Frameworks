@@ -21,3 +21,16 @@ jobs:
 
       - name: Run tests
         run: npm run test:run:verbose
+
+      - name: Notify Google Sheet
+        if: always()
+        run: |
+          curl -X POST "${{ secrets.SHEETS_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"repo\": \"${{ github.repository }}\",
+              \"student\": \"${{ github.actor }}\",
+              \"tag\": \"${{ github.ref_name }}\",
+              \"status\": \"${{ job.status }}\",
+              \"run_url\": \"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"
+            }"

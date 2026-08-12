@@ -51,6 +51,17 @@ npm run test:run:verbose # run all tests once with per-test detail
 npm run test             # watch mode
 ```
 
+## Submitting
+
+When you are done with the exercises, push a tag to trigger the automated test run:
+
+```bash
+git tag submit
+git push origin submit
+```
+
+You can push as many tags as you like — the tests will run each time.
+
 ---
 
 ## Tech Stack
