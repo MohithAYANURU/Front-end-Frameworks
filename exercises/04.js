@@ -7,7 +7,7 @@ const movie = {
   rating: 8.8,
   genres: ["Action", "Sci-Fi", "Thriller"],
   director: {
-    name: "Christopher Nolan",
+    directorName: "Christopher Nolan",
     nationality: "British",
   },
 };
