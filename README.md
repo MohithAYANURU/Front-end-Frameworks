@@ -60,7 +60,14 @@ git tag submit
 git push origin submit
 ```
 
-You can push as many tags as you like — the tests will run each time.
+> **Important:** Tags are unique — you cannot push the same tag twice. To resubmit, delete the old tag first and recreate it:
+> ```bash
+> git tag -d submit                # delete locally
+> git push origin --delete submit  # delete on GitHub
+> git tag submit                   # recreate
+> git push origin submit           # push again
+> ```
+> Or use a different tag name each time (`submit-2`, `submit-3`, etc.).
 
 ---
 
