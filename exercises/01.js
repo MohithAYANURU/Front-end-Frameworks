@@ -9,7 +9,7 @@ var rating = 8.8;
 
 // Later in the code:
 isWatched = true;
-rating = 8.8 + 0.2;
+rating = 8.8 + 2;
 movieTitle = "Interstellar"; // should this be allowed?
 
 console.log(movieTitle, releaseYear, isWatched, rating);
