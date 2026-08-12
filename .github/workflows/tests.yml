@@ -16,9 +16,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        working-directory: /
-        run: npm install
+        run: npm ci
 
       - name: Run tests
-        working-directory: /
         run: npm run test:run:verbose
