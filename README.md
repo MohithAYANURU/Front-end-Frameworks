@@ -60,6 +60,12 @@ npm run test:run:verbose # run all tests once with per-test detail
 npm run test             # watch mode
 ```
 
+To run a single exercise test:
+
+```bash
+npx vitest run 02        # run only exercise 02 tests
+```
+
 ## Submitting
 
 When you are done with the exercises, push a tag to trigger the automated test run:
