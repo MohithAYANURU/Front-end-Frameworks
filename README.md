@@ -13,7 +13,7 @@ The app itself (React, TMDB API, routing, global state) is built in subsequent b
 
 ## Prerequisites
 
-Node.js 18 or higher : https://nodejs.org
+Node.js 22 or higher : https://nodejs.org
 
 ---
 
@@ -36,7 +36,9 @@ This allows the automated test results to be recorded when you submit.
 
 ## Exercises
 
-Plain JS files in `exercises/` : no build step required. You can run them in the browser console or with Node 18+.
+Plain JS files in `exercises/` : no build step required. You can run them in the browser console or with Node 22+.
+
+Automated tests for each exercise live in `tests/` — one file per exercise. You do not need to modify them.
 
 | File | Topic |
 |---|---|

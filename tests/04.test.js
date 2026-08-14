@@ -21,7 +21,7 @@ vm.runInContext(
     __rating = rating
     __movieTitle = movieTitle
     __tagline = tagline
-    __directorName = directorName
+    __directorName = typeof directorName !== 'undefined' ? directorName : typeof name !== 'undefined' ? name : undefined
     __printMovie = printMovie
   })()`,
   context
@@ -49,9 +49,9 @@ describe('Exercise 04 — Destructuring Objects', () => {
     })
   })
 
-  describe('2 — nested destructuring of director.directorName', () => {
+  describe('2 — nested destructuring of director.name', () => {
     it('uses nested destructuring syntax', () => {
-      expect(code).toMatch(/director\s*:\s*\{[^}]*directorName/)
+      expect(code).toMatch(/director\s*:\s*\{[^}]*name/)
     })
 
     it('directorName is "Christopher Nolan"', () => {

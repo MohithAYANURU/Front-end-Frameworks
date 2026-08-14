@@ -1,54 +1,71 @@
-# Session 06 — Checklist (Polish, accessibility, and final verification)
+# Session 06 — Checklist (Presentations)
 
 ## Purpose
 
-- Final polishing: styles, accessibility improvements, small bug fixes, and preparing the project for submission.
-- Verify parity with the finished project in assets/finished-project.
+- Students present the single-page application built progressively across the course.
+- No new implementation is required during this session. The deliverable is the running application and the codebase.
 
-What to implement
+---
 
-1. Visual polish
-   - Improve spacing, typography, and card layouts. Ensure images have alt attributes.
-   - Acceptance: UI looks consistent across common desktop and mobile viewports.
+## Presentation format (10–15 minutes per student)
 
-2. Accessibility
-   - Ensure keyboard navigation: cards are keyboard-focusable; modal traps focus where appropriate or at minimum supports ESC to close.
-   - Use semantic HTML (main, header, nav, article, button) and ARIA attributes only where needed.
-   - Acceptance: basic keyboard-driven flows work without a mouse.
+1. **Live demo** — run `npm run dev` and walk through the application in the browser:
+   - Load the home page and show movies (live API or fallback data)
+   - Search for a movie by title
+   - Filter by genre and sort results
+   - Open a movie modal and toggle the watchlist
+   - Toggle the theme (dark / light) and confirm it persists on reload
+   - Navigate to `/about` and to an unknown URL (404 page)
 
-3. Tests and type-checking
-   - Run `npm run type-check` and `npm run test:run` (if tests exist in starter). Fix any TypeScript errors and failing tests introduced by refactor.
-   - Acceptance: TypeScript passes and any included tests pass.
+2. **Component architecture walkthrough** — open the codebase and explain:
+   - How `App.tsx` is structured (routing + AppProvider)
+   - Where state lives: what is local (`HomePage`) vs global (`AppContext`)
+   - How `movieService.js` decides between live API and local fallback
 
-4. Build verification
-   - Run `npm run build` and `npm run preview` to sanity-check production build.
-   - Acceptance: build succeeds and preview serves a working production bundle.
+3. **State management explanation** — be ready to answer:
+   - Why did you choose Context + useReducer rather than prop drilling?
+   - What does `TOGGLE_FAVOURITE` do in the reducer?
+   - Why does `isFavorite` use American spelling but the action type uses British (`TOGGLE_FAVOURITE`)?
 
-5. Final parity check (how to verify the app is identical to the finished project)
-   - File-level: compare the following key files and folders to the finished project to ensure equivalent structure and behaviour (do NOT copy code):
-     - src/App.tsx — routing + provider
-     - src/pages/\* — HomePage, AboutPage, NotFoundPage
-     - src/components/\* — Header, MovieCard, MovieList, MovieModal, FilterBar, StatsBanner
-     - src/context/AppContext.tsx and src/utils/storage.js
-     - src/hooks/useMovies.ts and src/services/movieService.js
-     - src/index.css and any CSS Modules under src/components/
-   - Behavioral: the app should match the finished project for the following flows:
-     - Load home page and see movies (live API or fallback)
-     - Search filters results
-     - Open and close modal (no navigation)
-     - Toggle theme and favourites (persisted)
-     - Navigate to /about and unknown routes behave correctly
-   - Commands to run for verification:
-     - npm run dev
-     - npm run type-check
-     - npm run test:run
-     - npm run build && npm run preview
+4. **Reflection** — one or two things that were harder than expected, and what you would do differently.
 
-6. Submission checklist for students
-   - Ensure the app runs locally with `npm run dev`.
-   - Confirm no console errors in the browser for primary user flows.
-   - Add a short README describing how to run the app and any env variables required (e.g., VITE_TMDB_API_KEY or instructions to use the local fallback).
+No slides are required. Peer questions are encouraged after each presentation.
 
-Verification
+---
 
-- When all checklist items pass and the verification commands succeed, the project is considered equivalent to the finished project for the course learning outcomes.
+## Pre-session checklist (complete before Session 06)
+
+These are the items to finish during the homework window after Session 05:
+
+- [ ] `npm run dev` starts and all routes work without console errors
+- [ ] `npm run type-check` passes with no errors
+- [ ] `npm run test:run` passes (if tests exist)
+- [ ] `npm run build` succeeds and `npm run preview` serves the production bundle correctly
+- [ ] Theme toggle persists across page reloads
+- [ ] Favourites toggle persists across page reloads
+- [ ] MovieModal opens and closes without changing the URL
+- [ ] Genre filtering and sort work (requires the updated `movieService.js` from Session 04)
+- [ ] `AppProvider` wraps `BrowserRouter` in `App.tsx`
+- [ ] `Header` reads theme and favourites from `useAppContext()` — not from `HomePage` props
+- [ ] `MovieCard` and `MovieModal` read `isFavorite` and `toggleFavorite` from `useAppContext()`
+- [ ] `MovieList.tsx` and `SearchBar.tsx` have been removed (they became dead code in Session 04)
+- [ ] A short README exists explaining how to run the app and what `VITE_TMDB_API_KEY` is for
+
+---
+
+## Behavioral parity with the finished project
+
+The app should match `assets/finished-project` for the following flows:
+
+| Flow | Expected behaviour |
+|------|--------------------|
+| Home page load | Movies appear (TMDB or fallback) |
+| Search | Results filter in real time |
+| Genre pill | List updates to that genre only |
+| Sort | Results reorder by the selected criterion |
+| Movie card click | Modal opens; URL does not change |
+| Modal close | Returns to same filtered list and scroll position |
+| Watchlist toggle (card or modal) | State updates immediately; Header count changes; persists on reload |
+| Theme toggle | UI switches; persists on reload |
+| `/about` | Static about page renders |
+| Unknown URL | 404 page renders with a back-navigation option |
