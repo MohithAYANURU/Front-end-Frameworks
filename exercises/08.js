@@ -41,7 +41,10 @@ const getPostById = async (id) => {
 };
 // Call getPostById(1) and log the result.
 // Call getPostById(99999) — what happens? Handle it.
-getPostById(1).then(post => console.log(post)); 
+getPostById(1)
+  .then(post => console.log(post))
+  .catch(err => console.log("Failed:", err.message));
+
 getPostById(99999)
   .then(post => console.log(post))
   .catch(err => console.log("Post not found:", err.message));
