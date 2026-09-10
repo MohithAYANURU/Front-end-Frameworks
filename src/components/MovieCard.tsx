@@ -62,7 +62,7 @@ const MovieCard = ({ movie, onClick }: MovieCardProps) => {
       </div>
 
       <div className="movie-card-info">
-        <h3 className="movie-card-title">{movie.title}</h3>
+        <h2 className="movie-card-title">{movie.title}</h2>
 
         <div className="movie-card-meta">
           <span>{movie.release_date?.slice(0, 4)}</span>
