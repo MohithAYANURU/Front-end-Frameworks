@@ -1,4 +1,4 @@
-# Session 02 — Checklist (Components, Props & State)
+   # Session 02 — Checklist (Components, Props & State)
 
 ## Purpose
 
