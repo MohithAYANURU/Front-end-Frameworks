@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { SAMPLE_MOVIES } from "../data/sampleMovies";
 import { movieService } from "../services/movieService";
 import type { Movie } from "../types";
 
 export function useMovies() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<Movie[]>(SAMPLE_MOVIES);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

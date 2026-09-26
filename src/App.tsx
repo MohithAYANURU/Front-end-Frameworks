@@ -29,7 +29,7 @@ function App() {
 
         {isLoading && <p role="status">Loading movies...</p>}
         {error && <p role="alert">{error}</p>}
-        {!isLoading && !error && (
+        {!error && (
           <section>
             <MovieList movies={filteredMovies} />
           </section>
