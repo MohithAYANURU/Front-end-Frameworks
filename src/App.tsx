@@ -1,42 +1,27 @@
-import SearchBar from "./components/SearchBar"
-import MovieList from "./components/MovieList"
-import {useState} from "react"
-import {useMovies} from "./hooks/useMovies"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import AboutPage from "./pages/AboutPage";
+import HomePage from "./pages/HomePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import { SAMPLE_MOVIES } from "./data/sampleMovies";
+import { getTheme, setTheme } from "./utils/storage";
 
-
-
-  
 function App() {
-  const [query, setQuery] = useState("");
-  const [minRating] = useState(0);
-  const {movies, isLoading, error} = useMovies();
-
-  const normalizedQuery = query.trim().toLowerCase();
-  const filteredMovies = movies.filter((movie) => {
-    const matchesQuery =
-      movie.title.toLowerCase().includes(normalizedQuery) ||
-      movie.overview?.toLowerCase().includes(normalizedQuery);
-    const matchesRating = (movie.vote_average ?? 0) >= minRating;
-
-    return matchesQuery && matchesRating;
-  });
+  useEffect(() => {
+    setTheme(getTheme());
+  }, []);
 
   return (
-    <div className="app-layout">
-      <main className="main-container">
-        <SearchBar query={query} onChange={setQuery} />
-        <h1>Movie App</h1>
-
-        {isLoading && <p role="status">Loading movies...</p>}
-        {error && <p role="alert">{error}</p>}
-        {!error && (
-          <section>
-            <MovieList movies={filteredMovies} />
-          </section>
-        )}
-    </main>
-    </div>
+    <BrowserRouter>
+      <div className="app-layout">
+        <Routes>
+          <Route path="/" element={<HomePage initialMovies={SAMPLE_MOVIES} />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
-export default App ;
+export default App;
