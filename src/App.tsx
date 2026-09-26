@@ -1,12 +1,15 @@
-import {SAMPLE_MOVIES} from "./data/sampleMovies"
 import SearchBar from "./components/SearchBar"
 import MovieList from "./components/MovieList"
 import {useState} from "react"
+import {useMovies} from "./hooks/useMovies"
 
+
+
+  
 function App() {
-  const [movies] = useState(SAMPLE_MOVIES);
   const [query, setQuery] = useState("");
   const [minRating] = useState(0);
+  const {movies, isLoading, error} = useMovies();
 
   const normalizedQuery = query.trim().toLowerCase();
   const filteredMovies = movies.filter((movie) => {
@@ -23,10 +26,14 @@ function App() {
       <main className="main-container">
         <SearchBar query={query} onChange={setQuery} />
         <h1>Movie App</h1>
-        
-        <section>
-          <MovieList movies={filteredMovies} />
-      </section>
+
+        {isLoading && <p role="status">Loading movies...</p>}
+        {error && <p role="alert">{error}</p>}
+        {!isLoading && !error && (
+          <section>
+            <MovieList movies={filteredMovies} />
+          </section>
+        )}
     </main>
     </div>
   );
