@@ -99,3 +99,5 @@ export const useAppContext = () => {
   }
   return context;
 };
+
+export const useOptionalAppContext = () => useContext(AppContext);

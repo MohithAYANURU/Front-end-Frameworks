@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Movie } from "../types";
 import { getPosterUrl } from "../data/sampleMovies";
-import { useAppContext } from "../context/AppContext";
+import { useOptionalAppContext } from "../context/AppContext";
 
 type MovieCardProps = {
   movie: Movie;
@@ -8,8 +9,11 @@ type MovieCardProps = {
 };
 
 const MovieCard = ({ movie, onMovieClick }: MovieCardProps) => {
-  const { toggleFavorite, isFavorite } = useAppContext();
-  const isFavourite = isFavorite(movie.id);
+  const context = useOptionalAppContext();
+  const [standaloneFavorite, setStandaloneFavorite] = useState(false);
+  const isFavourite = context
+    ? context.isFavorite(movie.id)
+    : standaloneFavorite;
 
   return (
     <article
@@ -41,7 +45,11 @@ const MovieCard = ({ movie, onMovieClick }: MovieCardProps) => {
               aria-label={isFavourite ? "Remove from favourites" : "Add to favourites"}
               onClick={(event) => {
                 event.stopPropagation();
-                toggleFavorite(movie);
+                if (context) {
+                  context.toggleFavorite(movie);
+                } else {
+                  setStandaloneFavorite((current) => !current);
+                }
               }}
             >
               <svg
@@ -95,4 +103,3 @@ const MovieCard = ({ movie, onMovieClick }: MovieCardProps) => {
 };
 
 export default MovieCard;
-
