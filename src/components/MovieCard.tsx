@@ -1,21 +1,21 @@
-import { useState } from "react";
 import { Movie } from "../types";
 import { getPosterUrl } from "../data/sampleMovies";
+import { useAppContext } from "../context/AppContext";
 
 type MovieCardProps = {
   movie: Movie;
-  onClick?: () => void;
+  onMovieClick?: (movie: Movie) => void;
 };
 
-const MovieCard = ({ movie, onClick }: MovieCardProps) => {
-  const [isFavourite, setIsFavourite] = useState(false);
+const MovieCard = ({ movie, onMovieClick }: MovieCardProps) => {
+  const { toggleFavorite, isFavorite } = useAppContext();
+  const isFavourite = isFavorite(movie.id);
 
   return (
     <article
       className="movie-card"
       tabIndex={0}
       aria-label={movie.title}
-      onClick={onClick}
     >
       <div className="poster-wrapper">
         <img
@@ -41,7 +41,7 @@ const MovieCard = ({ movie, onClick }: MovieCardProps) => {
               aria-label={isFavourite ? "Remove from favourites" : "Add to favourites"}
               onClick={(event) => {
                 event.stopPropagation();
-                setIsFavourite((current) => !current);
+                toggleFavorite(movie);
               }}
             >
               <svg
@@ -57,7 +57,20 @@ const MovieCard = ({ movie, onClick }: MovieCardProps) => {
             </button>
           </div>
 
-          <span className="quick-view-hint">View Details</span>
+          <span
+            className="quick-view-hint"
+            role="button"
+            tabIndex={0}
+            onClick={() => onMovieClick?.(movie)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                onMovieClick?.(movie);
+              }
+            }}
+          >
+            View Details
+          </span>
         </div>
       </div>
 
@@ -82,6 +95,4 @@ const MovieCard = ({ movie, onClick }: MovieCardProps) => {
 };
 
 export default MovieCard;
-
-
 

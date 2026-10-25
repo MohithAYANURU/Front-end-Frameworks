@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
 import MovieList from "../components/MovieList";
+import MovieModal from "../components/MovieModal";
 import { movieService } from "../services/movieService";
 import type { Movie } from "../types";
 
 type HomePageProps = {
   initialMovies?: Movie[];
+  searchQuery?: string;
 };
 
-export default function HomePage({ initialMovies = [] }: HomePageProps) {
+export default function HomePage({
+  initialMovies = [],
+  searchQuery = "",
+}: HomePageProps) {
   const [movies, setMovies] = useState<Movie[]>(initialMovies);
-  const [query, setQuery] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,19 +35,31 @@ export default function HomePage({ initialMovies = [] }: HomePageProps) {
     return () => controller.abort();
   }, []);
 
-  const normalizedQuery = query.trim().toLowerCase();
+  const normalizedQuery = searchQuery.trim().toLowerCase();
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(normalizedQuery),
   );
 
   return (
     <>
-      <Header search={query} onSearch={setQuery} />
       <main className="main-container">
         <h1>Movie App</h1>
         {isLoading && <p role="status">Loading movies...</p>}
         {error && <p role="alert">{error}</p>}
-        {!isLoading && !error && <MovieList movies={filteredMovies} />}
+        {!isLoading && !error && (
+          <>
+            <MovieList
+              movies={filteredMovies}
+              onMovieClick={setSelectedMovie}
+            />
+            {selectedMovie && (
+              <MovieModal
+                movie={selectedMovie}
+                onClose={() => setSelectedMovie(null)}
+              />
+            )}
+          </>
+        )}
       </main>
     </>
   );
