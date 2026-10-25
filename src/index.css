@@ -108,6 +108,45 @@ select {
   flex: 1;
 }
 
+.genre-filter {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.genre-filter-label {
+  padding-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.genre-filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.genre-filter-pill {
+  padding: 7px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.genre-filter-pill:hover,
+.genre-filter-pill.active {
+  border-color: var(--accent);
+  background: var(--bg-pill-active);
+  color: #ffffff;
+}
+
 /* Header */
 .site-header {
   position: sticky;
