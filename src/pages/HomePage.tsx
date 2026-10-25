@@ -46,7 +46,7 @@ export default function HomePage({
         <h1>Movie App</h1>
         {isLoading && <p role="status">Loading movies...</p>}
         {error && <p role="alert">{error}</p>}
-        {!isLoading && !error && (
+        {!error && (!isLoading || initialMovies.length > 0) && (
           <>
             <MovieList
               movies={filteredMovies}
